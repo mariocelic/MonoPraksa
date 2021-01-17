@@ -6,6 +6,11 @@ using Microsoft.Extensions.Hosting;
 using MonoPraksa.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace MonoPraksa
 {
@@ -27,10 +32,33 @@ namespace MonoPraksa
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<PraksaContext>()
                 .AddDefaultUI()
-                .AddDefaultTokenProviders();            
+                .AddDefaultTokenProviders();
+
+
+            services.AddLocalization(opt =>
+            {
+                opt.ResourcesPath = "Resources";
+            });
+
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(
+                opt =>
+                {
+                    var susupportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("hr"),
+                        new CultureInfo("en")
+                    };
+
+                    opt.DefaultRequestCulture = new RequestCulture("hr");
+                    opt.SupportedCultures = susupportedCultures;
+                    opt.SupportedUICultures = susupportedCultures;
+                });
 
             services.AddControllersWithViews(); 
             services.AddRazorPages();
+
         }
 
         
@@ -49,9 +77,22 @@ namespace MonoPraksa
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
+
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
+            //var supportedCultures = new [] { "hr", "en"};
+            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            //    .AddSupportedCultures(supportedCultures)
+            //    .AddSupportedUICultures(supportedCultures);
+
+            //app.UseRequestLocalization(localizationOptions);
 
             app.UseEndpoints(endpoints =>
             {
