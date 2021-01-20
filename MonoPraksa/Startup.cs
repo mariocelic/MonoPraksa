@@ -34,7 +34,6 @@ namespace MonoPraksa
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-
             services.AddLocalization(opt =>
             {
                 opt.ResourcesPath = "Resources";

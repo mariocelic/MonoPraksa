@@ -1,0 +1,39 @@
+﻿@model Student
+
+<div clas="modal fade" id="detailStudent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="detailStudentLabel">Student Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label asp-for="ID">@Model.ID</label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName">@Model.LastName</label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstMidName">@Model.FirstMidName</label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EnrollmentDate">@Model.EnrollmentDate</label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Enrollments">@Model.Enrollments</label>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

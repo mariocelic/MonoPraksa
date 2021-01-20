@@ -81,7 +81,7 @@ namespace MonoPraksa.Controllers
                 return NotFound();
             }
 
-            return View(student);
+            return PartialView("_DetailStudentPartial", student);
         }
 
         // GET: Students/Create
