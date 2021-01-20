@@ -53,10 +53,9 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |                    
                     <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#detailStudent"
-                            data-url="@Url.Action("Details")">
+                            data-url='@Url.Action("Details" , "Students", new { id = item.ID })'>
                         Details
                     </button>
-                    @*<a asp-action="Details" asp-route-id="@item.ID">Details</a> |*@
                     <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                 </td>
             </tr>
