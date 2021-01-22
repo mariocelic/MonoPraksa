@@ -1,39 +1,49 @@
-﻿@model MonoPraksa.Models.Student   
-         
-<div clas="modal fade" id="detailStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="detailStudentLabel">Student Details</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+﻿@model Student   
 
-            <div class="modal-body">
-                <form>
-
-                    <div class="form-group">
-                        <label asp-for="ID">@Model.ID</label>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="LastName">@Model.LastName</label>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="FirstMidName">@Model.FirstMidName</label>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="EnrollmentDate">@Model.EnrollmentDate</label>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Enrollments">@Model.Enrollments</label>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="modal fade" id="detailStudent" tabindex="-1" role="dialog" aria-labelledby="detailStudentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailStudentLabel">Student Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label asp-for="LastName">@Model.LastName</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstMidName">@Model.FirstMidName</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EnrollmentDate">@Model.EnrollmentDate</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Enrollments"></label>
+                            <table class="table">
+                                <tr>
+                                    <th>Course Title</th>
+                                    <th>Grade</th>
+                                </tr>
+                                @foreach (var item in Model.Enrollments)
+                                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Course.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Grade)
+                                </td>
+                            </tr>}
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                    
+                </div>
             </div>
         </div>
     </div>
-</div>
